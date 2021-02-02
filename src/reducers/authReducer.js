@@ -1,7 +1,6 @@
 import { types } from "../types/types";
 
 
-
 // Reducer que simpre reciben el state y el action
 const authReducer = ( state = {}, action ) => {
         

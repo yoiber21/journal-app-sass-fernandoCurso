@@ -10,8 +10,14 @@ El store no es una clase. Es solo un objeto con unos pócos métodos. Para crear
 const reducers = combineReducers({
      auth: authReducer
 })
+const devTools = window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
 
 // Se recibe el reducer
-const store = createStore( reducers );
+const store = createStore( 
+    reducers,
+    // Se agrega esta linea para utilizar redux dev tools
+    devTools
+
+ );
 
 export default store;
