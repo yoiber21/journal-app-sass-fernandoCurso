@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { useDispatch } from 'react-redux'
 import { useForm } from "../../hooks/UseForm";
-import { login } from "../../actions/auth";
+import { /* login,  */startLoginEmailPassword } from "../../actions/auth";
 
 export const LoginScreen = () => {
 
@@ -18,8 +18,9 @@ export const LoginScreen = () => {
 
     const handleSubmit = (e)=> {
         e.preventDefault();
+        
         // Se le envia la accion al dispatch
-        dispatch( login(12344, 'Yoiber') );
+        dispatch( startLoginEmailPassword(email, password));
     }
     return (
         <>
