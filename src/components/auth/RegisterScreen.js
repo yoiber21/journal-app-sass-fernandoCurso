@@ -1,13 +1,14 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useForm } from '../../hooks/UseForm';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import validator from 'validator';
 import { removeError, setError } from '../../actions/ui';
 
 export const RegisterScreen = () => {
 
     const dispatch = useDispatch();
+    const { msgError } = useSelector( state => state.ui );
 
     const [ formValues, handleInputChange, /* reset */ ] = useForm({
         name: 'Yoiber Beitar',
@@ -39,14 +40,20 @@ export const RegisterScreen = () => {
         return true
     }
 
+    useEffect(()=>{
+        
+    },[msgError])
+
     return (
         <>
             <h3 className="auth__title">Register</h3>
 
             <form onSubmit={ (e)=>handleRegister(e) }>
-                <div className="auth__alert-error">
-                    Error en el Formulario
-                </div>
+                   { msgError &&
+                    <div className="auth__alert-error">
+                        {  msgError }
+                    </div>
+                   }
                 <input 
                     type="text"
                     placeholder="Name"
