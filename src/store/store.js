@@ -3,6 +3,7 @@ import authReducer from '../reducers/authReducer';
 
 // se necesita ejecutar una accion http para eso instalamos redux-thunk para crear acciones asincronas
 import thunk from 'redux-thunk';
+import { uiReducer } from '../reducers/uiReducer';
 
 /* Este es el store que  contiene todo el árbol de estado de tu aplicación. La única forma de cambiar el estado que contiene es despachando una acción.
 El store no es una clase. Es solo un objeto con unos pócos métodos. Para crearlo, pasa tu principal función reductora a createStore. */
@@ -11,7 +12,8 @@ El store no es una clase. Es solo un objeto con unos pócos métodos. Para crear
 
 // Este reducer es el que se le va a mandar al createStore
 const reducers = combineReducers({
-     auth: authReducer
+     auth: authReducer,
+     ui: uiReducer
 })
 
 // Linea para utilizar varios middleware
@@ -25,6 +27,7 @@ const store = createStore(
     composeEnhancers(
          applyMiddleware( thunk )
     )
+    
 
  );
 

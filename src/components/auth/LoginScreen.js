@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { useDispatch } from 'react-redux'
+import { useDispatch } from 'react-redux';
 import { useForm } from "../../hooks/UseForm";
 import { /* login,  */startGoogleLogin, startLoginEmailPassword } from "../../actions/auth";
 

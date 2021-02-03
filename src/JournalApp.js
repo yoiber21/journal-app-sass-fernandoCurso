@@ -8,7 +8,7 @@ import store from "./store/store";
 export const JournalApp = () => {
 
   return(
-    <Provider store={store}>
+    <Provider store={ store }>
         <AppRouter />
     </Provider>
   )
