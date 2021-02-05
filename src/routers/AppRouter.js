@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import {
     BrowserRouter as Router,
     Switch,
-    Route,
     Redirect
   } from 'react-router-dom';
 import { firebase } from "../firebase/firebase-config"
@@ -11,6 +10,8 @@ import { JournalScreen } from '../components/journal/JournalScreen';
 import { useDispatch } from 'react-redux';
 import { login } from '../actions/auth';
 import { Spinner } from 'react-bootstrap';
+import PublicRoute from './PublicRoute';
+import PrivateRoute from './PrivateRoute';
 
 export const AppRouter = () => {
 
@@ -42,15 +43,17 @@ export const AppRouter = () => {
         <Router>
             <div>
                 <Switch>
-                    <Route 
+                    <PublicRoute 
                         path="/auth"
                         component={ AuthRouter }
-                    />
+                        loggedIn={  loggedIn }
+                    /> 
 
-                    <Route 
+                    <PrivateRoute
                         exact
                         path="/"
                         component={ JournalScreen }
+                        loggedIn={  loggedIn }
                     />
 
                     <Redirect to="/auth/login" />

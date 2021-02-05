@@ -1,6 +1,8 @@
+import Swal from "sweetalert2";
 import { types } from "../types/types"
 import  { firebase, googleAuthProvider}  from "../firebase/firebase-config";
 import { finishLoading, startLoading } from "./ui";
+
 // se necesita ejecutar una accion http para eso instalamos redux-thunk para crear acciones asincronas
 // Se crean este archivo para manejar cada accion del usuario
 
@@ -18,6 +20,7 @@ export const startLoginEmailPassword = ( email, password ) =>{
                 dispatch( login(user.uid, user.displayName));
             }).catch(err => {
                 dispatch(finishLoading())
+                Swal.fire('Error', err.message, 'error')
                 console.log(err)
             })
        
@@ -36,6 +39,7 @@ export const startRegisterWithLoginEmailPassword = ( email, password, name ) =>{
            
         } ).catch(err => {
             dispatch(finishLoading())
+            Swal.fire('Error', err.message, 'error')
             console.log(err)
         });
     }
