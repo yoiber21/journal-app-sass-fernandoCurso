@@ -10,7 +10,6 @@ export const LoginScreen = () => {
     // Este useDispatch lo que hace es darle acceso al dispatch, hacer dispatch de acciones
     const dispatch = useDispatch();
     const { loading } = useSelector(state => state.ui)
-    console.log(loading);
 
     const [ formValues, handleInputChange ] = useForm({
         email: 'yoiber@gmail.com',
