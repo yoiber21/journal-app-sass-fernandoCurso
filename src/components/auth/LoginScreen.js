@@ -1,21 +1,24 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useForm } from "../../hooks/UseForm";
 import { /* login,  */startGoogleLogin, startLoginEmailPassword } from "../../actions/auth";
+import { Spinner } from "react-bootstrap";
 
 export const LoginScreen = () => {
 
     // Este useDispatch lo que hace es darle acceso al dispatch, hacer dispatch de acciones
     const dispatch = useDispatch();
+    const { loading } = useSelector(state => state.ui)
+    console.log(loading);
 
     const [ formValues, handleInputChange ] = useForm({
         email: 'yoiber@gmail.com',
-        password: 123456
+        password: '123456'
     })
 
     const { email, password } = formValues;
-
+    
     const handleSubmit = (e)=> {
         e.preventDefault();
         
@@ -31,6 +34,8 @@ export const LoginScreen = () => {
             <h3 className="auth__title">Login</h3>
 
             <form onSubmit={(e)=>handleSubmit(e) }>
+
+            { loading ?  ( <div className="text-center"><span> loading... <br /> <Spinner className="text-center bg-success"  animation="grow" />  </span></div> ): null }
 
                 <input 
                     type="text"
@@ -55,6 +60,7 @@ export const LoginScreen = () => {
                 <button
                     type="submit"
                     className="btn btn-primary btn-block"
+                    disabled={ loading }
                 >
                     Login
                 </button>
@@ -82,7 +88,7 @@ export const LoginScreen = () => {
                 >
                     Create new account    
                 </Link>
-
+                
             </form>
         </>
     )

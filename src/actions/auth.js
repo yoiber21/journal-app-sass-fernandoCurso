@@ -1,5 +1,6 @@
 import { types } from "../types/types"
 import  { firebase, googleAuthProvider}  from "../firebase/firebase-config";
+import { finishLoading, startLoading } from "./ui";
 // se necesita ejecutar una accion http para eso instalamos redux-thunk para crear acciones asincronas
 // Se crean este archivo para manejar cada accion del usuario
 
@@ -10,12 +11,35 @@ export const startLoginEmailPassword = ( email, password ) =>{
 
     // Regresa un callback
     return ( dispatch )=>{
-        setTimeout(() => { 
-            dispatch( login(123243, 'Yoiber'));
-        }, 3000);
+        dispatch(startLoading())
+        firebase.auth().signInWithEmailAndPassword( email, password )
+            .then(async({ user })=>{
+                dispatch(finishLoading())
+                dispatch( login(user.uid, user.displayName));
+            }).catch(err => {
+                dispatch(finishLoading())
+                console.log(err)
+            })
+       
     }
 }
 
+// Función para el registro por google
+export const startRegisterWithLoginEmailPassword = ( email, password, name ) =>{
+    return( dispatch )=>{
+        dispatch(startLoading())
+        firebase.auth().createUserWithEmailAndPassword( email, password )  
+        .then( async({ user }) => {
+            dispatch(finishLoading())
+            await user.updateProfile( { displayName: name } );
+            console.log(user);
+           
+        } ).catch(err => {
+            dispatch(finishLoading())
+            console.log(err)
+        });
+    }
+}
 
 
 // Funcion para auth de google
@@ -40,3 +64,4 @@ export const login = ( uid, displayName ) =>({
         }
     
 })
+
